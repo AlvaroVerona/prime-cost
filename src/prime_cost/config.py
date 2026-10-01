@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+import copy
 from functools import lru_cache
 from pathlib import Path
 
+import pandas as pd
 import yaml
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -26,12 +28,13 @@ def load_menu() -> dict:
         return yaml.safe_load(f)
 
 
-def small_settings(days: int = 70, warmup_days: int = 14, seed: int = 7) -> dict:
+def small_settings(days: int = 150, warmup_days: int = 21, seed: int = 7, holdout_days: int = 42) -> dict:
     """A copy of the settings with a short period, for fast tests."""
-    import copy
-
     s = copy.deepcopy(load_settings())
     s["seed"] = seed
-    s["period"] = {"start": "2025-04-01", "end": (__import__("pandas").Timestamp("2025-04-01") + __import__("pandas").Timedelta(days=days - 1)).strftime("%Y-%m-%d"), "warmup_days": warmup_days}
-    s["holdout_days"] = 28
+    start = pd.Timestamp("2025-04-07")  # a Monday
+    s["period"] = {"start": start.strftime("%Y-%m-%d"), "end": (start + pd.Timedelta(days=days - 1)).strftime("%Y-%m-%d"), "warmup_days": warmup_days}
+    s["holdout_days"] = holdout_days
+    s["pricing"] = {"rounds": []}
+    s["costs"]["shocks"] = {}
     return s

@@ -8,6 +8,7 @@ Run: `python -m prime_cost.analytics.food_cost`.
 from __future__ import annotations
 
 import json
+from itertools import pairwise
 
 import numpy as np
 import pandas as pd
@@ -18,7 +19,7 @@ from prime_cost.config import OUTPUT_DIR
 
 def count_periods(counts: pd.DataFrame) -> list[tuple[pd.Timestamp, pd.Timestamp]]:
     dates = sorted(counts["count_date"].unique())
-    return list(zip(dates[:-1], dates[1:], strict=True))
+    return list(pairwise(dates))
 
 
 def reconcile(t: dict[str, pd.DataFrame]) -> pd.DataFrame:
@@ -34,7 +35,7 @@ def reconcile(t: dict[str, pd.DataFrame]) -> pd.DataFrame:
     price = t["cost_history"]
     rows = []
     for start, end in count_periods(t["inventory_counts"]):
-        in_p = lambda s, a=start, b=end: (s > a) & (s <= b)  # noqa: E731
+        in_p = lambda s, a=start, b=end: (s > a) & (s <= b)
         u = use[in_p(use["date"])].groupby("ingredient_id")["qty_theory"].sum()
         p = purchases[in_p(purchases["received_on"])].groupby("ingredient_id")["qty_received"].sum()
         w = waste[in_p(waste["date"])].groupby("ingredient_id")["qty_waste"].sum()

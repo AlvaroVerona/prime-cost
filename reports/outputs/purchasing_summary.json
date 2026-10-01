@@ -1,0 +1,28 @@
+{
+  "weeks": 12,
+  "seeds": 10,
+  "baseline": {
+    "waste_cost": 9726.49,
+    "expiry_cost": 7106.84,
+    "lost_margin": 25240.02,
+    "lost_units": 3315.6,
+    "purchases": 67550.54,
+    "end_stock_value": 3504.73,
+    "leak": 34966.51
+  },
+  "forecast": {
+    "waste_cost": 5996.12,
+    "expiry_cost": 3294.47,
+    "lost_margin": 21352.82,
+    "lost_units": 2698.5,
+    "purchases": 63482.31,
+    "end_stock_value": 1935.84,
+    "leak": 27348.95
+  },
+  "saving_mean": 7617.56,
+  "saving_std": 491.64,
+  "saving_min": 6806.29,
+  "saving_share_of_seeds_positive": 1.0,
+  "saving_annualized": 28384.49,
+  "rel_forecast_sd": 0.176
+}

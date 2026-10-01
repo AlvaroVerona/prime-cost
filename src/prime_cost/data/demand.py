@@ -131,10 +131,10 @@ def generate_demand(cal: pd.DataFrame, catalog: Catalog, prices: pd.DataFrame, s
         part = np.array([hour_to_part[h] for h in hour])
 
         # --- how many of each kind of thing, per ticket
-        def cat_factor(cat: str) -> float:
+        def cat_factor(cat: str, price_effect: pd.Series = pe) -> float:
             sub = items.loc[cats[cat]]
             w = sub["pop"] / sub["pop"].sum()
-            return float((w * pe.loc[sub.index]).sum())
+            return float((w * price_effect.loc[sub.index]).sum())
 
         f = {c: cat_factor(c) for c in cats}
         cvr = cov.astype(float)

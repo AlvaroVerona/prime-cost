@@ -1,5 +1,5 @@
 category,round_date,price_change,elasticity,ci90_low,ci90_high,se,significant_90,elasticity_shrunk
-Tapas,2025-03-01,0.04,-1.75,-3.04,-0.52,0.763,True,-1.09
-Bebidas,2026-01-15,0.05,-0.6,-1.56,0.34,0.579,False,-0.71
-Vino por copa,2026-01-15,0.05,-0.16,-1.34,0.96,0.7,False,-0.58
-Vino botella,2026-01-15,0.05,-1.42,-3.05,0.18,0.983,False,-0.93
+Tapas,2025-03-01,0.04,-1.33,-2.68,-0.04,0.8,True,-0.95
+Bebidas,2026-01-15,0.05,-0.37,-1.27,0.72,0.603,False,-0.62
+Vino por copa,2026-01-15,0.05,-0.51,-1.58,0.53,0.642,False,-0.69
+Vino botella,2026-01-15,0.05,0.66,-0.67,2.26,0.892,False,-0.45

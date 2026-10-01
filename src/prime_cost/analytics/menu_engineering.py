@@ -69,7 +69,7 @@ def _window_rate(daily: pd.DataFrame, cats: list[str], lo: pd.Timestamp, hi: pd.
     return d[cats].sum().sum() / d["covers"].sum()
 
 
-def estimate_elasticity(f: pd.DataFrame, calendar: pd.DataFrame, rnd: dict, weeks: int = 12, n_boot: int = 400, seed: int = 0) -> list[dict]:  # noqa: ARG001
+def estimate_elasticity(f: pd.DataFrame, calendar: pd.DataFrame, rnd: dict, weeks: int = 12, n_boot: int = 400, seed: int = 0) -> list[dict]:
     """Difference-in-differences of units per cover around one price round, with a day-level bootstrap CI."""
     covers = f.drop_duplicates("ticket_id").groupby("date")["covers"].sum().rename("covers")
     units = f.pivot_table(index="date", columns="category", values="qty", aggfunc="sum", fill_value=0)

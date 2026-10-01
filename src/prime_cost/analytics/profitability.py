@@ -64,7 +64,7 @@ def break_even(pnl: pd.DataFrame, last_months: int = 12) -> dict:
     cm_pct = 1 - variable / rev
     fixed = (p["labor"] + p["fixed_expenses"]).sum() / len(p)
     be = fixed / cm_pct
-    return {"months": int(len(p)), "monthly_fixed_costs": round(float(fixed), 2), "contribution_margin_pct": round(float(cm_pct), 4),
+    return {"months": len(p), "monthly_fixed_costs": round(float(fixed), 2), "contribution_margin_pct": round(float(cm_pct), 4),
             "break_even_monthly_revenue": round(float(be), 2), "avg_monthly_revenue": round(float(rev / len(p)), 2),
             "margin_of_safety_pct": round(float(1 - be / (rev / len(p))), 4)}
 
@@ -73,7 +73,7 @@ def unit_economics(f: pd.DataFrame) -> dict:
     tk = f.groupby(["ticket_id", "channel"]).agg(revenue=("net_revenue", "sum"), cost=("cost", "sum"), contribution=("contribution", "sum"), covers=("covers", "first")).reset_index()
     out = {}
     for ch, g in tk.groupby("channel"):
-        out[ch] = {"tickets": int(len(g)), "avg_ticket": round(float(g["revenue"].mean()), 2), "avg_product_cost": round(float(g["cost"].mean()), 2),
+        out[ch] = {"tickets": len(g), "avg_ticket": round(float(g["revenue"].mean()), 2), "avg_product_cost": round(float(g["cost"].mean()), 2),
                    "avg_contribution": round(float(g["contribution"].mean()), 2), "contribution_pct": round(float(g["contribution"].sum() / g["revenue"].sum()), 4),
                    "revenue_per_cover": round(float(g["revenue"].sum() / g["covers"].sum()), 2)}
     return out

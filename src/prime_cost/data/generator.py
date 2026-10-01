@@ -50,7 +50,7 @@ def inject_quality_issues(tickets: pd.DataFrame, lines: pd.DataFrame, settings: 
     return tickets, lines, log
 
 
-def generate(settings: dict | None = None, menu: dict | None = None, write: bool = True) -> dict:
+def generate(settings: dict | None = None, menu: dict | None = None, write: bool = True, raw_dir=RAW_DIR, processed_dir=PROCESSED_DIR) -> dict:
     settings = settings or load_settings()
     menu = menu or load_menu()
     t0 = time.time()
@@ -66,7 +66,6 @@ def generate(settings: dict | None = None, menu: dict | None = None, write: bool
 
     policy = BaselinePolicy(settings["inventory"]["baseline_policy"]["safety_days"])
     engine = InventoryEngine(catalog, menu, settings, cal, costs, r_eng, policy)
-    warm = settings["period"]["warmup_days"]
     start = pd.Timestamp(settings["period"]["start"])
     by_day = {d: g.reset_index(drop=True) for d, g in desired.groupby("date")}
     first = pd.concat([by_day[d] for d in sorted(by_day)[:14]])
@@ -85,7 +84,7 @@ def generate(settings: dict | None = None, menu: dict | None = None, write: bool
     sold = pd.concat(sold_parts, ignore_index=True)
 
     # ---- raw tables (period only) -------------------------------------------------------------------------
-    in_period = lambda s: s >= start  # noqa: E731
+    in_period = lambda s: s >= start
     sold_lines = sold[in_period(sold["date"]) & (sold["sold_qty"] > 0)].copy()
     sold_lines["qty"] = sold_lines["sold_qty"]
     sold_lines = sold_lines.drop(columns=["sold_qty"]).reset_index(drop=True)
@@ -127,15 +126,15 @@ def generate(settings: dict | None = None, menu: dict | None = None, write: bool
     tables["purchases"] = tables["purchases"][tables["purchases"]["received_on"] >= start].reset_index(drop=True)
 
     if write:
-        RAW_DIR.mkdir(parents=True, exist_ok=True)
-        PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
+        raw_dir.mkdir(parents=True, exist_ok=True)
+        processed_dir.mkdir(parents=True, exist_ok=True)
         for name, df in tables.items():
-            df.to_parquet(RAW_DIR / f"{name}.parquet", index=False)
-        (RAW_DIR / "_truth.json").write_text(json.dumps(truth, default=str))
+            df.to_parquet(raw_dir / f"{name}.parquet", index=False)
+        (raw_dir / "_truth.json").write_text(json.dumps(truth, default=str))
         # artifacts for the purchasing backtest: engine state at the start of the holdout + the demand to replay
         hold = sold[sold["date"] >= holdout_start].copy()
-        hold.to_parquet(PROCESSED_DIR / "holdout_desired_lines.parquet", index=False)
-        with (PROCESSED_DIR / "engine_snapshot.pkl").open("wb") as f:
+        hold.to_parquet(processed_dir / "holdout_desired_lines.parquet", index=False)
+        with (processed_dir / "engine_snapshot.pkl").open("wb") as f:
             pickle.dump({"engine": snapshot, "catalog": catalog, "costs": costs, "cal": cal, "holdout_start": holdout_start}, f)
     print(f"generated {len(tk)} tickets, {len(sold_lines)} lines, {len(shifts)} shifts in {time.time() - t0:.1f}s")
     return {"tables": tables, "truth": truth, "engine": engine, "snapshot": snapshot, "catalog": catalog, "cal": cal}

@@ -1,47 +1,47 @@
 {
-  "revenue": 2025641.29,
-  "contribution": 1384160.43,
-  "theoretical_food_cost_pct": 0.2825,
+  "revenue": 2004902.54,
+  "contribution": 1393046.28,
+  "theoretical_food_cost_pct": 0.2711,
   "break_even": {
     "months": 12,
-    "monthly_fixed_costs": 40819.33,
-    "contribution_margin_pct": 0.6836,
-    "break_even_monthly_revenue": 59709.23,
-    "avg_monthly_revenue": 88822.67,
-    "margin_of_safety_pct": 0.3278
+    "monthly_fixed_costs": 45319.33,
+    "contribution_margin_pct": 0.6945,
+    "break_even_monthly_revenue": 65252.47,
+    "avg_monthly_revenue": 87841.87,
+    "margin_of_safety_pct": 0.2572
   },
   "unit_economics": {
     "barra": {
-      "tickets": 3983,
-      "avg_ticket": 57.74,
-      "avg_product_cost": 16.29,
-      "avg_contribution": 40.99,
-      "contribution_pct": 0.7098,
-      "revenue_per_cover": 28.02
+      "tickets": 4010,
+      "avg_ticket": 56.78,
+      "avg_product_cost": 15.49,
+      "avg_contribution": 40.85,
+      "contribution_pct": 0.7194,
+      "revenue_per_cover": 27.72
     },
     "delivery": {
-      "tickets": 5103,
-      "avg_ticket": 33.51,
-      "avg_product_cost": 9.52,
-      "avg_contribution": 13.32,
-      "contribution_pct": 0.3974,
-      "revenue_per_cover": 33.51
+      "tickets": 5061,
+      "avg_ticket": 33.34,
+      "avg_product_cost": 8.89,
+      "avg_contribution": 13.83,
+      "contribution_pct": 0.4148,
+      "revenue_per_cover": 33.34
     },
     "sala": {
-      "tickets": 18355,
-      "avg_ticket": 78.35,
-      "avg_product_cost": 22.11,
-      "avg_contribution": 55.61,
-      "contribution_pct": 0.7098,
-      "revenue_per_cover": 26.82
+      "tickets": 18234,
+      "avg_ticket": 78.14,
+      "avg_product_cost": 21.2,
+      "avg_contribution": 56.32,
+      "contribution_pct": 0.7208,
+      "revenue_per_cover": 26.6
     },
     "terraza": {
-      "tickets": 2480,
-      "avg_ticket": 72.75,
-      "avg_product_cost": 20.58,
-      "avg_contribution": 51.59,
-      "contribution_pct": 0.7091,
-      "revenue_per_cover": 26.65
+      "tickets": 2422,
+      "avg_ticket": 73.42,
+      "avg_product_cost": 19.94,
+      "avg_contribution": 52.9,
+      "contribution_pct": 0.7204,
+      "revenue_per_cover": 26.2
     }
   }
 }

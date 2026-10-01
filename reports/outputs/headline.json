@@ -1,0 +1,46 @@
+{
+  "quality_score": 99.58,
+  "records_quarantined": 722,
+  "revenue_two_years": 2004902.54,
+  "last12_revenue": 1054102.0,
+  "last12_ebitda": 143344.0,
+  "last12_ebitda_pct": 0.136,
+  "last12_prime_cost_pct": 0.5954,
+  "theoretical_food_cost_pct": 0.2711,
+  "actual_vs_theoretical_gap_pct": 0.1641,
+  "gap_cost_two_years": 88068.33,
+  "break_even_monthly": 65252.47,
+  "delivery_contribution_per_order": 13.83,
+  "dine_in_contribution_per_ticket": 56.32,
+  "menu_classes": {
+    "Dog": 0.0449,
+    "Plowhorse": 0.4256,
+    "Puzzle": 0.2025,
+    "Star": 0.3269
+  },
+  "forecast_best_model": "gbm",
+  "forecast_wape": 0.1412,
+  "forecast_baseline_wape": 0.2026,
+  "forecast_improvement_pct": 0.3031,
+  "interval_coverage": 0.845,
+  "staffing_saving_pct": 0.151,
+  "staffing_saving_annualized": 37178.75,
+  "staffing_gap_hours": [
+    79,
+    36
+  ],
+  "purchasing_saving_12w": 7617.56,
+  "purchasing_saving_annualized": 28384.49,
+  "purchasing_waste_12w": [
+    9726.49,
+    5996.12
+  ],
+  "purchasing_lost_margin_12w": [
+    25240.02,
+    21352.82
+  ],
+  "scenario_status_quo_ebitda": 143167.0,
+  "scenario_recommendations_ebitda": 188829.0,
+  "scenario_uplift": 45662.0,
+  "scenario_prob_loss_month_status_quo": 0.9982
+}

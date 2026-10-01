@@ -1,0 +1,23 @@
+{
+  "days_evaluated": 72,
+  "current": {
+    "cost": 56625.6,
+    "understaffed_head_hours": 79.0,
+    "overstaffed_head_hours": 852.0,
+    "hours_with_a_gap": 79,
+    "role_hours_checked": 2484
+  },
+  "optimized": {
+    "cost": 48073.3,
+    "understaffed_head_hours": 36.0,
+    "overstaffed_head_hours": 223.0,
+    "hours_with_a_gap": 36,
+    "role_hours_checked": 2484
+  },
+  "labor_saving_eur": 8552.3,
+  "labor_saving_pct": 0.151,
+  "labor_saving_pct_of_total_labor": 0.1252,
+  "labor_saving_annualized_eur": 37178.75,
+  "gap_hours_reduction_pct": 0.5443,
+  "buffer_share": 0.5
+}

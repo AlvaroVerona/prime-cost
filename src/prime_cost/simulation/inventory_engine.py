@@ -35,10 +35,13 @@ class BaselinePolicy:
     def __init__(self, safety_days: dict):
         self.safety = safety_days
 
-    def target(self, engine: InventoryEngine, ing: str, horizon_days: int, arrival: pd.Timestamp) -> float:
+    def expected_use(self, engine: InventoryEngine, ing: str, days: list[pd.Timestamp]) -> float:
+        return engine.avg_use(ing) * len(days)
+
+    def safety_stock(self, engine: InventoryEngine, ing: str, days: list[pd.Timestamp]) -> float:
         kind = engine.ing_kind[ing]
         key = "drink" if kind in ("drink", "wine") else kind
-        return engine.avg_use(ing) * (horizon_days + self.safety[key])
+        return engine.avg_use(ing) * self.safety[key]
 
 
 class InventoryEngine:
@@ -139,9 +142,12 @@ class InventoryEngine:
 
     def _open_days_between(self, start: pd.Timestamp, end: pd.Timestamp) -> int:
         """Open days in [start, end]."""
+        return len(self.open_day_list(start, end))
+
+    def open_day_list(self, start: pd.Timestamp, end: pd.Timestamp) -> list[pd.Timestamp]:
         if end < start:
-            return 0
-        return int(sum(1 for d in pd.date_range(start, end) if d in self.open_days))
+            return []
+        return [d for d in pd.date_range(start, end) if d in self.open_days]
 
     # ------------------------------------------------------------------ start
     def seed_initial_stock(self, first_lines: pd.DataFrame, n_days: int, days_of_stock: float = 2.5) -> None:
@@ -159,6 +165,7 @@ class InventoryEngine:
 
     # ------------------------------------------------------------------ one day
     def run_day(self, date: pd.Timestamp, lines: pd.DataFrame | None, record: bool = True) -> pd.DataFrame | None:
+        self.today = date
         """Simulate one calendar day. `lines` are the desired order lines of an open day (sorted by time).
 
         Returns the lines with a `sold_qty` column (None on closed days)."""
@@ -185,15 +192,14 @@ class InventoryEngine:
             if arrival is None:
                 continue
             next_arrival = self._arrival(self._next_order_day(date, sup), sup) or (arrival + pd.Timedelta(days=7))
-            horizon = max(self._open_days_between(arrival, next_arrival - pd.Timedelta(days=1)), 1)
-            until_arrival = self._open_days_between(date, arrival - pd.Timedelta(days=1))
+            cover_days = self.open_day_list(arrival, next_arrival - pd.Timedelta(days=1)) or [arrival]
+            wait_days = self.open_day_list(date, arrival - pd.Timedelta(days=1))
             for ing in self.by_supplier.get(sup, []):
-                avg = self.avg_use(ing)
-                if avg <= 0:
+                if self.avg_use(ing) <= 0:
                     continue
                 incoming = sum(p["qty"] for p in self.pending if p["ing"] == ing and p["arrive"] <= arrival)
-                projected = self.stock[ing] + incoming - avg * until_arrival
-                target = self.policy.target(self, ing, horizon, arrival)
+                projected = self.stock[ing] + incoming - self.policy.expected_use(self, ing, wait_days)
+                target = self.policy.expected_use(self, ing, cover_days) + self.policy.safety_stock(self, ing, cover_days)
                 qty = target - projected
                 if qty <= 1e-9:
                     continue
@@ -224,7 +230,7 @@ class InventoryEngine:
         wl = self.inv["waste"]["log_prob_expiry"]
         for ing, lots in self.lots.items():
             while lots and lots[0][0] <= date:
-                exp_date, qty = lots.popleft()
+                _, qty = lots.popleft()
                 self.stock[ing] = max(0.0, self.stock[ing] - qty)
                 if qty <= 1e-9:
                     continue
@@ -244,7 +250,7 @@ class InventoryEngine:
         if self.stock[ing] < 1.0 - 1e-9:
             return False
         self._take(ing, 1.0)
-        cap = max(3, int(round(self.rng.normal(self.inv["pours_actual_mean"], 0.5))))
+        cap = max(3, round(self.rng.normal(self.inv["pours_actual_mean"], 0.5)))
         bottles.append([date, cap - 1, cap, 1])
         return True
 

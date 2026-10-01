@@ -86,7 +86,7 @@ def score(n_rows: dict, issues: pd.DataFrame) -> dict:
 
 
 def run(raw_dir=RAW_DIR, processed_dir=PROCESSED_DIR, output_dir=OUTPUT_DIR) -> dict:
-    rd = lambda n: pd.read_parquet(raw_dir / f"{n}.parquet")  # noqa: E731
+    rd = lambda n: pd.read_parquet(raw_dir / f"{n}.parquet")
     tickets, lines, items = rd("tickets"), rd("ticket_lines"), rd("items")
     purchases, counts, shifts, waste = rd("purchases"), rd("inventory_counts"), rd("shifts"), rd("waste_log")
     price_history = rd("price_history")

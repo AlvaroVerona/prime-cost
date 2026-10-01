@@ -54,6 +54,7 @@ def build_expenses(settings: dict) -> pd.DataFrame:
         for concept, amount in [("rent", rent), ("utilities", util), ("insurance", e["insurance"]), ("software_pos", e["software_pos"]),
                                 ("accounting", e["accounting"]), ("marketing", e["marketing"]), ("maintenance", e["maintenance"]),
                                 ("cleaning", e["cleaning"]), ("licences_other", e["licences_other"]),
-                                ("consumables_breakage", e["consumables_breakage"])]:
+                                ("consumables_breakage", e["consumables_breakage"]),
+                                ("management_salary", e["management_salary"])]:
             rows.append({"month": m, "concept": concept, "amount": round(float(amount), 2)})
     return pd.DataFrame(rows)

@@ -19,24 +19,24 @@
       "Star": 6
     },
     "Vino botella": {
-      "Dog": 4,
+      "Dog": 3,
       "Plowhorse": 9,
       "Puzzle": 11,
-      "Star": 6
+      "Star": 7
     },
     "Vino por copa": {
       "Dog": 1,
       "Plowhorse": 4,
-      "Puzzle": 2,
-      "Star": 3
+      "Puzzle": 1,
+      "Star": 4
     }
   },
   "margin_share_by_class": {
-    "Dog": 0.048,
-    "Plowhorse": 0.4296,
-    "Puzzle": 0.215,
-    "Star": 0.3074
+    "Dog": 0.0449,
+    "Plowhorse": 0.4256,
+    "Puzzle": 0.2025,
+    "Star": 0.3269
   },
-  "robust_price_gain_total": 14167.97,
+  "robust_price_gain_total": 19041.63,
   "price_rise_tested": 0.05
 }

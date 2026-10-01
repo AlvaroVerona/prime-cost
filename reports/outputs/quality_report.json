@@ -3,70 +3,70 @@
     "by_dataset": {
       "tickets": 99.61,
       "ticket_lines": 99.78,
-      "purchases": 98.17,
+      "purchases": 98.11,
       "inventory_counts": 100.0,
       "shifts": 100.0,
       "waste_log": 100.0
     },
-    "overall": 99.59
+    "overall": 99.58
   },
   "rows": {
-    "tickets": 30138,
-    "ticket_lines": 213861,
-    "purchases": 11389,
+    "tickets": 29946,
+    "ticket_lines": 212388,
+    "purchases": 11329,
     "inventory_counts": 8008,
     "shifts": 6120,
-    "waste_log": 3782
+    "waste_log": 3778
   },
   "quarantined": {
-    "tickets": 130,
-    "ticket_lines": 598,
+    "tickets": 129,
+    "ticket_lines": 593,
     "purchases": 0,
     "inventory_counts": 0,
     "shifts": 0,
     "waste_log": 0
   },
   "validated": {
-    "tickets": 30008,
-    "ticket_lines": 213264,
-    "purchases": 11389
+    "tickets": 29817,
+    "ticket_lines": 211795,
+    "purchases": 11329
   },
   "issues_by_rule": [
     {
       "dataset": "purchases",
       "rule": "invoice_above_agreed_price",
       "severity": "MEDIUM",
-      "records": 468
+      "records": 503
     },
     {
       "dataset": "purchases",
       "rule": "short_delivery",
       "severity": "MEDIUM",
-      "records": 236
+      "records": 220
     },
     {
       "dataset": "ticket_lines",
       "rule": "non_positive_qty",
       "severity": "CRITICAL",
-      "records": 171
+      "records": 169
     },
     {
       "dataset": "ticket_lines",
       "rule": "price_mismatch",
       "severity": "HIGH",
-      "records": 427
+      "records": 424
     },
     {
       "dataset": "tickets",
       "rule": "duplicate_ticket",
       "severity": "HIGH",
-      "records": 120
+      "records": 119
     },
     {
       "dataset": "tickets",
       "rule": "missing_channel",
       "severity": "MEDIUM",
-      "records": 90
+      "records": 89
     },
     {
       "dataset": "tickets",
@@ -76,8 +76,8 @@
     }
   ],
   "issues_by_severity": {
-    "CRITICAL": 171,
-    "HIGH": 557,
-    "MEDIUM": 794
+    "CRITICAL": 169,
+    "HIGH": 553,
+    "MEDIUM": 812
   }
 }

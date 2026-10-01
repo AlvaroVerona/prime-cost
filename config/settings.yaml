@@ -39,9 +39,9 @@ demand:
   barra_share: 0.25                                                # of in-house covers (the rest is table service)
   party_sizes: {1: 0.10, 2: 0.45, 3: 0.15, 4: 0.20, 5: 0.06, 6: 0.04}
   hour_weights:
-    weekday: {13: 0.05, 14: 0.08, 15: 0.06, 16: 0.03, 17: 0.03, 18: 0.06, 19: 0.12, 20: 0.17, 21: 0.17, 22: 0.12, 23: 0.07, 24: 0.04}
+    weekday: {13: 0.05, 14: 0.08, 15: 0.06, 16: 0.03, 17: 0.03, 18: 0.06, 19: 0.12, 20: 0.17, 21: 0.17, 22: 0.12, 23: 0.07, 24: 0.0}
     fri_sat: {13: 0.04, 14: 0.06, 15: 0.05, 16: 0.03, 17: 0.03, 18: 0.05, 19: 0.10, 20: 0.16, 21: 0.17, 22: 0.13, 23: 0.10, 24: 0.08}
-    sun:     {13: 0.14, 14: 0.19, 15: 0.15, 16: 0.08, 17: 0.06, 18: 0.07, 19: 0.09, 20: 0.09, 21: 0.06, 22: 0.04, 23: 0.02, 24: 0.01}
+    sun:     {13: 0.14, 14: 0.19, 15: 0.15, 16: 0.08, 17: 0.06, 18: 0.07, 19: 0.09, 20: 0.09, 21: 0.06, 22: 0.04, 23: 0.0, 24: 0.0}
   delivery:
     orders_per_day: {1: 4, 2: 5, 3: 7, 4: 12, 5: 14, 6: 9}
     extra_items_mean: 2.2
@@ -103,6 +103,8 @@ labor:
   # How many guests one person can serve per hour (used to turn demand into a required headcount)
   guests_per_staff: {sala: 14, cocina: 28, barra: 24}
   stay_carryover: 0.5         # guests who arrived the previous hour and are still being served
+  service_hours: {weekday: [13, 24], fri_sat: [13, 25], sun: [13, 23]}   # [first hour, last hour + 1)
+  prep_hour: 12               # one cook starts an hour before opening (mise en place)
 
 expenses_monthly:             # EUR per month (fixed costs); utilities vary with the season
   rent: 9200
@@ -116,6 +118,7 @@ expenses_monthly:             # EUR per month (fixed costs); utilities vary with
   cleaning: 520
   licences_other: 240
   consumables_breakage: 1400
+  management_salary: 4500      # the owner-operator's pay, counted as a cost so the margin is comparable to a bar run by a hired manager
   rent_indexation: {month: 1, rate: 0.03}
 
 payments:
@@ -138,3 +141,27 @@ analysis:                      # parameters of the analytics (not of the data ge
     elasticity_range: [-1.2, -0.4]  # pessimistic / optimistic elasticities every recommendation is tested against
     window_weeks: 12
     n_boot: 400
+  forecast:
+    horizon_days: 7            # a plan is made every day for the next 7 days
+    level_days: 28             # recent level used to scale the forecast
+    min_train_days: 120
+    weather_forecast_error: {temp_sigma: 1.5, rain_flip_prob: 0.15}   # test-time noise: a real forecast is not the actual weather
+    interval: 0.80
+    gbm: {max_iter: 250, learning_rate: 0.05, max_depth: 3, min_samples_leaf: 15}
+  staffing:
+    shift_lengths: [4, 5, 6, 7, 8, 9]
+    max_shifts_per_person_week: 5
+    max_hours_per_person_week: 40
+    buffer_share: 0.5           # plan for the point forecast plus this share of the gap to the upper interval bound
+    solver_seconds: 20
+  purchasing:
+    n_seeds: 10                  # the replay is repeated with this many random seeds
+    gross_margin_multiple: 2.3   # margin lost per euro of ingredient that is missing (1/food-cost-share - 1), for the newsvendor ratio
+  scenarios:
+    n_sims: 5000
+    growth_haircut: 0.5          # extrapolate only this share of the observed year-on-year growth
+    growth_extra_sd: 0.04        # additional uncertainty on annual growth
+    wage_rise_mean: 0.04
+    wage_rise_sd: 0.015
+    rent_rise: 0.03
+    recommendation_realisation: 0.6   # only this share of the estimated benefit of the recommendations is assumed to materialise

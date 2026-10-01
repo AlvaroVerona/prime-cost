@@ -1,8 +1,8 @@
 {
-  "theoretical_cost": 565598.42,
-  "actual_cost": 657010.95,
-  "logged_waste_cost": 42380.56,
-  "unexplained_cost": 49031.98,
-  "variance_cost": 91412.53,
-  "variance_pct_of_theoretical": 0.1616
+  "theoretical_cost": 536751.49,
+  "actual_cost": 624819.82,
+  "logged_waste_cost": 43182.83,
+  "unexplained_cost": 44885.5,
+  "variance_cost": 88068.33,
+  "variance_pct_of_theoretical": 0.1641
 }
