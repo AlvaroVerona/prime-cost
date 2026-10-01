@@ -44,7 +44,7 @@ fig = go.Figure(go.Heatmap(z=pivot.to_numpy(), x=[f"{h}h" for h in pivot.columns
 fig.update_layout(height=340, title="Average contribution after labor, by weekday and hour")
 st.plotly_chart(fig, use_container_width=True)
 worst = hp.sort_values("contribution_after_labor").head(3)
-explain("Red cells are hours where the contribution does not even cover the people on shift, with the fixed weekly template the bar uses today. "
+explain("Yellow to red cells are hours where the contribution barely covers, or does not cover, the people on shift with the fixed weekly template the bar uses today. "
         "Worst: " + ", ".join(f"{r.weekday_name} {int(r.hour)}h ({eur(r.contribution_after_labor)} per hour)" for r in worst.itertuples()) + ".")
 
 st.subheader("By dish")

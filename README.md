@@ -4,6 +4,8 @@
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+**[Live demo](https://prime-cost.streamlit.app/)**
+
 **Prime cost** is what a restaurateur watches first: the cost of product plus the cost of labor. This project follows
 that number through a synthetic Madrid wine bar and tapas restaurant, **La Cepa**, and answers the questions a consultant
 would ask an owner:
@@ -145,8 +147,22 @@ ingredient prices by €33k, wages by €30k and fixed costs by €25k; a 10% me
 
 ## Dashboard
 
-Nine pages that read the pipeline outputs in `reports/outputs/` (they are committed, so the dashboard works right after cloning):
-Overview, Data Quality, Profitability, Food Cost and Waste, Menu Engineering, Demand Forecast, Staffing, Purchasing and Scenarios.
+Nine pages that read the pipeline outputs in `reports/outputs/` (they are committed, so the dashboard works right after cloning), also
+available as a [live demo](https://prime-cost.streamlit.app/).
+
+<p align="center">
+  <img src="docs/screenshots/overview.jpg" width="49%" alt="Overview" />
+  <img src="docs/screenshots/data_quality.jpg" width="49%" alt="Data Quality" />
+  <img src="docs/screenshots/profitability.jpg" width="49%" alt="Profitability: unit economics and hours that do not pay for the staff" />
+  <img src="docs/screenshots/food_cost_and_waste.jpg" width="49%" alt="Food cost and waste" />
+  <img src="docs/screenshots/menu_engineering.jpg" width="49%" alt="Menu engineering matrix" />
+  <img src="docs/screenshots/demand_forecast.jpg" width="49%" alt="Demand forecast with interval" />
+  <img src="docs/screenshots/staffing.jpg" width="49%" alt="Staffing: today's template versus optimized" />
+  <img src="docs/screenshots/purchasing.jpg" width="49%" alt="Purchasing: policy replay" />
+  <img src="docs/screenshots/scenarios.jpg" width="49%" alt="Monte Carlo scenarios" />
+</p>
+
+Overview · Data Quality · Profitability · Food Cost and Waste · Menu Engineering · Demand Forecast · Staffing · Purchasing · Scenarios.
 
 ## Run it
 
