@@ -1,0 +1,36 @@
+[project]
+name = "prime-cost"
+version = "0.1.0"
+description = "Prime Cost: profitability, menu engineering, demand forecasting and operations optimization for a synthetic Madrid wine bar"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Alvaro Verona" }]
+dependencies = [
+    "pandas>=2.2",
+    "numpy>=1.26",
+    "pyarrow>=16.0",
+    "scipy>=1.13",
+    "scikit-learn>=1.5",
+    "ortools>=9.10",
+    "plotly>=5.22",
+    "streamlit>=1.37",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.2", "ruff>=0.5"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "app"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"

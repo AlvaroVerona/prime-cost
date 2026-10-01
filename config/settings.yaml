@@ -1,0 +1,130 @@
+# Every parameter of the synthetic wine bar "La Cepa" and of the analysis lives here.
+# Nothing is hardcoded in src/. The generator is fully seeded: same seed, same data.
+
+seed: 42
+
+period:
+  start: "2024-10-01"
+  end: "2026-09-30"
+  warmup_days: 35          # simulated before `start` so stock and ordering history are realistic; not written
+holdout_days: 84           # last N days: used only to evaluate forecasts and the optimizations (out-of-time)
+
+business:
+  name: "La Cepa"
+  city: "Madrid (Malasana)"
+  seats: 56
+
+calendar:
+  closed_weekdays: [0]                      # Monday (0=Mon ... 6=Sun)
+  closed_dates: ["12-25", "01-01"]
+  holidays: ["01-06", "05-01", "05-02", "05-15", "08-15", "10-12", "11-01", "11-09", "12-06", "12-08", "12-24", "12-31"]
+  holiday_uplift: 1.08
+  dayparts: {lunch: [13, 14, 15], afternoon: [16, 17, 18], evening: [19, 20, 21, 22], late: [23, 24]}
+
+weather:
+  temp_mean: 15.5
+  temp_amplitude: 9.5
+  temp_peak_doy: 200
+  temp_sigma: 2.8
+  rain_prob_by_month: {1: 0.18, 2: 0.18, 3: 0.20, 4: 0.24, 5: 0.20, 6: 0.10, 7: 0.04, 8: 0.05, 9: 0.12, 10: 0.20, 11: 0.22, 12: 0.20}
+
+demand:
+  base_covers: {1: 58, 2: 66, 3: 92, 4: 140, 5: 156, 6: 88}      # weekday index -> covers (guests) on an average day
+  seasonality: {1: 0.88, 2: 0.92, 3: 1.00, 4: 1.05, 5: 1.12, 6: 1.12, 7: 1.00, 8: 0.68, 9: 1.05, 10: 1.08, 11: 1.00, 12: 1.15}
+  growth_per_month: 0.008
+  noise_sigma: 0.11
+  rain_penalty: 0.10                                              # share of covers lost on a rainy day
+  tasting: {weekday: 2, week_of_month: 1, uplift: 0.35}           # first Wednesday of each month
+  terrace: {temp_min: 14.0, temp_full: 24.0, max_share: 0.30}
+  barra_share: 0.25                                                # of in-house covers (the rest is table service)
+  party_sizes: {1: 0.10, 2: 0.45, 3: 0.15, 4: 0.20, 5: 0.06, 6: 0.04}
+  hour_weights:
+    weekday: {13: 0.05, 14: 0.08, 15: 0.06, 16: 0.03, 17: 0.03, 18: 0.06, 19: 0.12, 20: 0.17, 21: 0.17, 22: 0.12, 23: 0.07, 24: 0.04}
+    fri_sat: {13: 0.04, 14: 0.06, 15: 0.05, 16: 0.03, 17: 0.03, 18: 0.05, 19: 0.10, 20: 0.16, 21: 0.17, 22: 0.13, 23: 0.10, 24: 0.08}
+    sun:     {13: 0.14, 14: 0.19, 15: 0.15, 16: 0.08, 17: 0.06, 18: 0.07, 19: 0.09, 20: 0.09, 21: 0.06, 22: 0.04, 23: 0.02, 24: 0.01}
+  delivery:
+    orders_per_day: {1: 4, 2: 5, 3: 7, 4: 12, 5: 14, 6: 9}
+    extra_items_mean: 2.2
+    commission: 0.28
+    packaging_cost: 0.9
+
+basket:                       # items per ticket, per cover
+  food_per_cover: 1.55
+  food_base: 0.4
+  drinks_per_cover: 1.0
+  glasses_per_cover: 0.60
+  bottle_prob_pair: 0.40      # probability that a table of 2+ orders a bottle
+  bottle_prob_solo: 0.02
+  extra_bottle_prob_large: 0.40
+  dessert_per_cover: 0.14
+  coffee_per_cover: 0.20
+  discount: {prob: 0.03, pct: 0.10}
+  void_prob: 0.004
+
+pricing:                      # price rounds applied to the menu (they create the natural experiment used to estimate elasticity)
+  rounds:
+    - {date: "2025-03-01", categories: [Tapas], change: 0.04}
+    - {date: "2026-01-15", categories: [Bebidas, Vino por copa, Vino botella], change: 0.05}
+
+costs:
+  monthly_drift: 0.002
+  monthly_sigma: 0.012
+  shocks:                     # price ramps linearly from start to end, then stays (or returns to normal after hold_until)
+    aceite: {start: "2025-02-01", end: "2025-07-01", change: 0.35}
+    gambas: {start: "2025-11-01", end: "2025-12-15", change: 0.20, hold_until: "2026-01-31"}
+  invoice_error_prob: 0.04    # supplier invoices a price above the agreed one
+  invoice_error_pct: 0.06
+
+inventory:
+  baseline_policy:
+    history_days: 28
+    safety_days: {fresh: 1.1, dry: 1.5, drink: 2.0}
+  glass_days: {red: 3, white: 2, rose: 2, orange: 2, sherry: 2, sparkling: 1}   # an open bottle is thrown away after this many days
+  pours_per_bottle: 5         # in the recipe
+  pours_actual_mean: 4.55     # real pours per bottle (overpour): hidden truth
+  waste:
+    log_prob_expiry: 0.70
+    operational_events_per_day: 3.0
+    log_prob_operational: 0.65
+    reasons: {preparation_error: 0.30, returned_dish: 0.18, spoiled_storage: 0.22, overproduction: 0.30}
+  hidden_overuse:             # physical use above the recipe (portioning, tasting, staff meals): hidden truth
+    by_kind: {fresh: 0.035, dry: 0.015, drink: 0.02}
+    by_ingredient: {jamon: 0.09, gambas: 0.07, pulpo: 0.06, aceite: 0.06, cerveza: 0.045}
+  count_weekday: 0            # stock is counted on Mondays (closed)
+  count_noise: 0.01
+
+labor:
+  wages: {encargado: 19.5, cocina: 16.5, barra: 14.2, sala: 13.5}   # loaded hourly cost, EUR (incl. social security)
+  # Current fixed weekly template. (role, start_hour, end_hour, headcount); end 25 means 01:00.
+  template:
+    weekday: [[encargado, 12, 20, 1], [cocina, 12, 18, 1], [cocina, 17, 24, 1], [sala, 13, 18, 1], [sala, 18, 24, 2], [barra, 13, 19, 1], [barra, 19, 24, 1]]
+    fri_sat: [[encargado, 12, 21, 1], [cocina, 12, 18, 1], [cocina, 17, 25, 2], [sala, 13, 18, 2], [sala, 18, 25, 4], [barra, 13, 19, 1], [barra, 19, 25, 2]]
+    sun:     [[encargado, 12, 20, 1], [cocina, 12, 18, 2], [cocina, 17, 23, 1], [sala, 13, 19, 2], [sala, 19, 23, 1], [barra, 13, 19, 1], [barra, 19, 23, 1]]
+  # How many guests one person can serve per hour (used to turn demand into a required headcount)
+  guests_per_staff: {sala: 14, cocina: 28, barra: 24}
+  stay_carryover: 0.5         # guests who arrived the previous hour and are still being served
+
+expenses_monthly:             # EUR per month (fixed costs); utilities vary with the season
+  rent: 9200
+  utilities_base: 2100
+  utilities_summer_extra: 450
+  insurance: 260
+  software_pos: 180
+  accounting: 320
+  marketing: 900
+  maintenance: 450
+  cleaning: 520
+  licences_other: 240
+  consumables_breakage: 1400
+  rent_indexation: {month: 1, rate: 0.03}
+
+payments:
+  card_share: 0.72
+  card_fee: 0.011
+
+quality:                      # injected data problems (the validation engine has to find them)
+  duplicate_ticket_rate: 0.004
+  missing_channel_rate: 0.003
+  negative_qty_rate: 0.0008
+  price_mismatch_rate: 0.002
+  bad_timestamp_rate: 0.0005

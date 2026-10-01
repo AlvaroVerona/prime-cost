@@ -1,0 +1,146 @@
+# Catalog of the synthetic wine bar "La Cepa" (Madrid): suppliers, ingredients, dishes and wines.
+# Everything the generator and the analytics treat as "master data" lives here.
+#
+# Ingredient fields: unit, cost (EUR per unit, base price at the start of the period), shelf (days before it
+# expires), trim (fraction lost when preparing: bones, peel, cutting), supplier, kind (fresh|dry|drink).
+# Recipe quantities are per serving, in the ingredient's unit, BEFORE trim.
+
+suppliers:
+  # order_days = weekdays when the order is placed (0=Mon, the closed day, is used for admin).
+  # Delivery arrives lead_days later (moved to the next open day).
+  S_FRESCO: {name: "Mercado fresco",        order_days: [0, 3], lead_days: 1, min_order_eur: 60}
+  S_CHARC:  {name: "Charcuteria y quesos",   order_days: [0, 3], lead_days: 1, min_order_eur: 80}
+  S_PESC:   {name: "Pescaderia",             order_days: [0, 1, 3, 5], lead_days: 1, min_order_eur: 60}
+  S_CARNE:  {name: "Carniceria",             order_days: [0, 3], lead_days: 1, min_order_eur: 50}
+  S_ECON:   {name: "Economato y despensa",   order_days: [0], lead_days: 1, min_order_eur: 100}
+  S_PAN:    {name: "Panaderia",              order_days: [0, 1, 2, 3, 4, 5, 6], lead_days: 1, min_order_eur: 0}
+  S_BEB:    {name: "Distribuidor bebidas",   order_days: [0, 3], lead_days: 1, min_order_eur: 120}
+  S_VINO:   {name: "Distribuidor vinos",     order_days: [0], lead_days: 2, min_order_eur: 150}
+
+ingredients:
+  # --- charcuteria y quesos
+  jamon:        {name: "Jamon iberico",        unit: kg, cost: 95.0, shelf: 30,  trim: 0.15, supplier: S_CHARC, kind: fresh}
+  chorizo:      {name: "Chorizo",              unit: kg, cost: 14.0, shelf: 30,  trim: 0.02, supplier: S_CHARC, kind: fresh}
+  lomo:         {name: "Lomo adobado",         unit: kg, cost: 12.5, shelf: 6,   trim: 0.03, supplier: S_CARNE, kind: fresh}
+  manchego:     {name: "Queso manchego curado",unit: kg, cost: 17.0, shelf: 45,  trim: 0.06, supplier: S_CHARC, kind: fresh}
+  cabrales:     {name: "Queso cabrales",       unit: kg, cost: 21.0, shelf: 30,  trim: 0.05, supplier: S_CHARC, kind: fresh}
+  brie:         {name: "Queso brie",           unit: kg, cost: 14.0, shelf: 21,  trim: 0.05, supplier: S_CHARC, kind: fresh}
+  # --- pescaderia
+  pulpo:        {name: "Pulpo",                unit: kg, cost: 16.0, shelf: 3,   trim: 0.30, supplier: S_PESC,  kind: fresh}
+  gambas:       {name: "Gambas",               unit: kg, cost: 18.0, shelf: 2,   trim: 0.35, supplier: S_PESC,  kind: fresh}
+  calamar:      {name: "Calamar",              unit: kg, cost: 11.0, shelf: 2,   trim: 0.25, supplier: S_PESC,  kind: fresh}
+  mejillones:   {name: "Mejillones",           unit: kg, cost: 4.2,  shelf: 2,   trim: 0.55, supplier: S_PESC,  kind: fresh}
+  boquerones:   {name: "Boquerones",           unit: kg, cost: 9.0,  shelf: 2,   trim: 0.30, supplier: S_PESC,  kind: fresh}
+  bacalao:      {name: "Bacalao",              unit: kg, cost: 13.0, shelf: 3,   trim: 0.12, supplier: S_PESC,  kind: fresh}
+  anchoas:      {name: "Anchoas del Cantabrico",unit: kg, cost: 52.0, shelf: 90, trim: 0.0,  supplier: S_ECON,  kind: dry}
+  atun:         {name: "Atun en lata",         unit: kg, cost: 14.0, shelf: 365, trim: 0.0,  supplier: S_ECON,  kind: dry}
+  # --- carniceria
+  carrillera:   {name: "Carrillera de ternera",unit: kg, cost: 12.0, shelf: 4,   trim: 0.20, supplier: S_CARNE, kind: fresh}
+  tartar:       {name: "Ternera para tartar",  unit: kg, cost: 26.0, shelf: 2,   trim: 0.05, supplier: S_CARNE, kind: fresh}
+  # --- mercado fresco
+  patata:       {name: "Patata",               unit: kg, cost: 0.95, shelf: 14,  trim: 0.15, supplier: S_FRESCO, kind: fresh}
+  huevos:       {name: "Huevos",               unit: ud, cost: 0.22, shelf: 21,  trim: 0.0,  supplier: S_FRESCO, kind: fresh, pack: 30}
+  tomate:       {name: "Tomate",               unit: kg, cost: 2.1,  shelf: 5,   trim: 0.08, supplier: S_FRESCO, kind: fresh}
+  cebolla:      {name: "Cebolla",              unit: kg, cost: 1.0,  shelf: 20,  trim: 0.10, supplier: S_FRESCO, kind: fresh}
+  padron:       {name: "Pimiento de padron",   unit: kg, cost: 7.5,  shelf: 3,   trim: 0.05, supplier: S_FRESCO, kind: fresh}
+  berenjena:    {name: "Berenjena",            unit: kg, cost: 2.4,  shelf: 6,   trim: 0.12, supplier: S_FRESCO, kind: fresh}
+  ajo:          {name: "Ajo",                  unit: kg, cost: 4.5,  shelf: 30,  trim: 0.12, supplier: S_FRESCO, kind: fresh}
+  perejil:      {name: "Perejil",              unit: kg, cost: 8.0,  shelf: 4,   trim: 0.20, supplier: S_FRESCO, kind: fresh}
+  lechuga:      {name: "Lechuga y mezclum",    unit: kg, cost: 5.0,  shelf: 3,   trim: 0.20, supplier: S_FRESCO, kind: fresh}
+  aguacate:     {name: "Aguacate",             unit: ud, cost: 1.3,  shelf: 4,   trim: 0.0,  supplier: S_FRESCO, kind: fresh}
+  limon:        {name: "Limon",                unit: kg, cost: 2.2,  shelf: 14,  trim: 0.10, supplier: S_FRESCO, kind: fresh}
+  piquillo:     {name: "Pimiento del piquillo",unit: kg, cost: 6.0,  shelf: 90,  trim: 0.0,  supplier: S_ECON,  kind: dry}
+  # --- economato
+  aceite:       {name: "Aceite de oliva",      unit: l,  cost: 6.0,  shelf: 365, trim: 0.0,  supplier: S_ECON,  kind: dry}
+  harina:       {name: "Harina",               unit: kg, cost: 1.0,  shelf: 365, trim: 0.0,  supplier: S_ECON,  kind: dry}
+  pan:          {name: "Pan (barra)",          unit: ud, cost: 0.9,  shelf: 1,   trim: 0.05, supplier: S_PAN,    kind: fresh}
+  leche:        {name: "Leche",                unit: l,  cost: 0.9,  shelf: 7,   trim: 0.0,  supplier: S_FRESCO, kind: fresh}
+  mantequilla:  {name: "Mantequilla",          unit: kg, cost: 7.5,  shelf: 60,  trim: 0.0,  supplier: S_ECON,  kind: dry}
+  nata:         {name: "Nata",                 unit: l,  cost: 3.2,  shelf: 10,  trim: 0.0,  supplier: S_FRESCO, kind: fresh}
+  azucar:       {name: "Azucar",               unit: kg, cost: 1.0,  shelf: 365, trim: 0.0,  supplier: S_ECON,  kind: dry}
+  aceitunas:    {name: "Aceitunas",            unit: kg, cost: 5.5,  shelf: 120, trim: 0.0,  supplier: S_ECON,  kind: dry}
+  miel:         {name: "Miel",                 unit: kg, cost: 8.0,  shelf: 365, trim: 0.0,  supplier: S_ECON,  kind: dry}
+  vinagre:      {name: "Vinagre",              unit: l,  cost: 3.0,  shelf: 365, trim: 0.0,  supplier: S_ECON,  kind: dry}
+  pimenton:     {name: "Pimenton",             unit: kg, cost: 12.0, shelf: 365, trim: 0.0,  supplier: S_ECON,  kind: dry}
+  chocolate:    {name: "Chocolate",            unit: kg, cost: 9.0,  shelf: 365, trim: 0.0,  supplier: S_ECON,  kind: dry}
+  cafe:         {name: "Cafe en grano",        unit: kg, cost: 14.0, shelf: 120, trim: 0.0,  supplier: S_ECON,  kind: dry}
+  # --- bebidas
+  cerveza:      {name: "Cerveza de barril",    unit: l,  cost: 2.4,  shelf: 60,  trim: 0.04, supplier: S_BEB,   kind: drink}
+  refresco:     {name: "Refresco",             unit: ud, cost: 0.55, shelf: 365, trim: 0.0,  supplier: S_BEB,   kind: drink, pack: 24}
+  agua:         {name: "Agua",                 unit: ud, cost: 0.35, shelf: 365, trim: 0.0,  supplier: S_BEB,   kind: drink, pack: 24}
+  vermut:       {name: "Vermut",               unit: l,  cost: 6.5,  shelf: 90,  trim: 0.0,  supplier: S_BEB,   kind: drink}
+  ginebra:      {name: "Ginebra",              unit: l,  cost: 21.0, shelf: 365, trim: 0.0,  supplier: S_BEB,   kind: drink}
+  tonica:       {name: "Tonica",               unit: ud, cost: 0.45, shelf: 365, trim: 0.0,  supplier: S_BEB,   kind: drink, pack: 24}
+
+# Dishes and drinks (non-wine). pop = relative popularity weight, daypart = multiplier by daypart
+# (lunch, afternoon, evening, late); elasticity = own-price elasticity used when prices change.
+items:
+  jamon_racion:   {name: "Jamon iberico (racion)",  cat: Tapas, price: 22.0, pop: 7,  e: -0.5, recipe: {jamon: 0.08, pan: 0.2}}
+  croquetas:      {name: "Croquetas de jamon",       cat: Tapas, price: 9.0,  pop: 12, e: -0.6, recipe: {jamon: 0.04, harina: 0.04, leche: 0.25, mantequilla: 0.04, huevos: 0.5, aceite: 0.08}}
+  tortilla:       {name: "Tortilla de patatas",      cat: Tapas, price: 8.5,  pop: 11, e: -0.6, recipe: {huevos: 3, patata: 0.25, cebolla: 0.06, aceite: 0.06}}
+  bravas:         {name: "Patatas bravas",           cat: Tapas, price: 6.5,  pop: 12, e: -0.8, recipe: {patata: 0.3, aceite: 0.08, tomate: 0.1, pimenton: 0.005}}
+  ensaladilla:    {name: "Ensaladilla rusa",         cat: Tapas, price: 7.5,  pop: 8,  e: -0.7, recipe: {patata: 0.15, huevos: 1, atun: 0.04, aceite: 0.03}}
+  pulpo:          {name: "Pulpo a la brasa",         cat: Tapas, price: 18.5, pop: 6,  e: -0.5, recipe: {pulpo: 0.2, patata: 0.15, pimenton: 0.005, aceite: 0.03}}
+  gambas_ajillo:  {name: "Gambas al ajillo",         cat: Tapas, price: 13.5, pop: 6,  e: -0.7, recipe: {gambas: 0.15, ajo: 0.02, aceite: 0.07, pan: 0.25}}
+  calamares:      {name: "Calamares fritos",         cat: Tapas, price: 12.5, pop: 8,  e: -0.7, recipe: {calamar: 0.18, harina: 0.04, aceite: 0.1, limon: 0.05}}
+  mejillones:     {name: "Mejillones al vapor",      cat: Tapas, price: 9.5,  pop: 4,  e: -0.8, recipe: {mejillones: 0.35, cebolla: 0.03, limon: 0.03, vinagre: 0.02}}
+  boquerones:     {name: "Boquerones en vinagre",    cat: Tapas, price: 8.0,  pop: 5,  e: -0.8, recipe: {boquerones: 0.12, vinagre: 0.02, ajo: 0.005, perejil: 0.005, aceite: 0.02}}
+  anchoas:        {name: "Anchoas del Cantabrico",   cat: Tapas, price: 12.0, pop: 4,  e: -0.5, recipe: {anchoas: 0.05, pan: 0.25, tomate: 0.05}}
+  huevos_rotos:   {name: "Huevos rotos con jamon",   cat: Tapas, price: 11.5, pop: 8,  e: -0.6, recipe: {huevos: 2, patata: 0.25, jamon: 0.04, aceite: 0.08}}
+  padron:         {name: "Pimientos de padron",      cat: Tapas, price: 7.5,  pop: 7,  e: -0.8, recipe: {padron: 0.2, aceite: 0.03}}
+  berenjena:      {name: "Berenjena frita con miel", cat: Tapas, price: 8.5,  pop: 5,  e: -0.7, recipe: {berenjena: 0.25, harina: 0.03, miel: 0.02, aceite: 0.1}}
+  carrillera:     {name: "Carrillera al vino",       cat: Tapas, price: 15.0, pop: 4,  e: -0.5, recipe: {carrillera: 0.3, cebolla: 0.08, patata: 0.15}}
+  tartar:         {name: "Steak tartar",             cat: Tapas, price: 16.5, pop: 4,  e: -0.5, recipe: {tartar: 0.15, huevos: 1, cebolla: 0.02, pan: 0.25}}
+  manchego:       {name: "Queso manchego curado",    cat: Tapas, price: 11.0, pop: 6,  e: -0.7, recipe: {manchego: 0.08, pan: 0.1}}
+  tabla_quesos:   {name: "Tabla de quesos",          cat: Tapas, price: 16.0, pop: 4,  e: -0.5, recipe: {manchego: 0.05, cabrales: 0.04, brie: 0.05, miel: 0.01, pan: 0.2}}
+  pan_tomate:     {name: "Pan con tomate",           cat: Tapas, price: 4.0,  pop: 9,  e: -1.0, recipe: {pan: 0.5, tomate: 0.1, aceite: 0.02}}
+  aceitunas:      {name: "Aceitunas",                cat: Tapas, price: 4.5,  pop: 8,  e: -1.0, recipe: {aceitunas: 0.1}}
+  ensalada:       {name: "Ensalada mixta",           cat: Tapas, price: 9.0,  pop: 4,  e: -0.8, recipe: {lechuga: 0.12, tomate: 0.1, cebolla: 0.02, atun: 0.03, aceite: 0.02, aguacate: 0.5}}
+  bacalao:        {name: "Bacalao confitado",        cat: Tapas, price: 16.5, pop: 3,  e: -0.5, recipe: {bacalao: 0.2, aceite: 0.12, ajo: 0.01, piquillo: 0.05}}
+  chorizo_sidra:  {name: "Chorizo a la sidra",       cat: Tapas, price: 9.5,  pop: 5,  e: -0.7, recipe: {chorizo: 0.12, pan: 0.15}}
+  lomo:           {name: "Lomo a la plancha",        cat: Tapas, price: 12.0, pop: 4,  e: -0.7, recipe: {lomo: 0.15, padron: 0.05, patata: 0.1}}
+  tarta_queso:    {name: "Tarta de queso",           cat: Postres, price: 6.5, pop: 6, e: -0.8, daypart: {afternoon: 1.6, lunch: 0.8, evening: 1.0, late: 0.8}, recipe: {nata: 0.08, huevos: 1, azucar: 0.05, harina: 0.02, mantequilla: 0.02}}
+  torrija:        {name: "Torrija caramelizada",     cat: Postres, price: 6.0, pop: 4, e: -0.8, daypart: {afternoon: 1.6, lunch: 0.8, evening: 1.0, late: 0.8}, recipe: {pan: 0.4, leche: 0.15, huevos: 1, azucar: 0.03, aceite: 0.05}}
+  brownie:        {name: "Brownie con helado",       cat: Postres, price: 6.0, pop: 4, e: -0.8, daypart: {afternoon: 1.6, lunch: 0.8, evening: 1.0, late: 0.8}, recipe: {chocolate: 0.06, mantequilla: 0.04, huevos: 1, harina: 0.03, azucar: 0.04}}
+  cafe:           {name: "Cafe solo",                cat: Cafe, price: 1.8, pop: 9, e: -0.9, daypart: {afternoon: 2.0, lunch: 1.5, evening: 0.4, late: 0.2}, recipe: {cafe: 0.009}}
+  cafe_leche:     {name: "Cafe con leche",           cat: Cafe, price: 2.0, pop: 7, e: -0.9, daypart: {afternoon: 2.0, lunch: 1.5, evening: 0.4, late: 0.2}, recipe: {cafe: 0.009, leche: 0.05}}
+  cana:           {name: "Cana de cerveza",          cat: Bebidas, price: 2.8, pop: 30, e: -0.9, recipe: {cerveza: 0.2}}
+  cerveza_gr:     {name: "Cerveza grande",           cat: Bebidas, price: 4.5, pop: 8, e: -0.9, recipe: {cerveza: 0.4}}
+  refresco:       {name: "Refresco",                 cat: Bebidas, price: 2.8, pop: 10, e: -0.8, recipe: {refresco: 1}}
+  agua:           {name: "Agua",                     cat: Bebidas, price: 2.5, pop: 8, e: -0.8, recipe: {agua: 1}}
+  vermut:         {name: "Vermut de grifo",          cat: Bebidas, price: 4.5, pop: 9, e: -0.7, daypart: {lunch: 1.6, afternoon: 1.2, evening: 0.9, late: 0.5}, recipe: {vermut: 0.1, aceitunas: 0.02}}
+  gin_tonic:      {name: "Gin tonic",                cat: Bebidas, price: 9.0, pop: 6, e: -0.6, daypart: {lunch: 0.1, afternoon: 0.3, evening: 1.0, late: 2.2}, recipe: {ginebra: 0.05, tonica: 1, limon: 0.02}}
+
+# Wines. cost = purchase price per 75 cl bottle. by_glass wines are sold per glass (5 pours of 15 cl) and
+# also by the bottle; the open bottle only lasts glass_days before the remainder is thrown away.
+wines:
+  w01: {name: "Verdejo Rueda",           type: white, cost: 6.4,  bottle_price: 21, glass_price: 4.5, by_glass: true,  pop: 9}
+  w02: {name: "Albarino Rias Baixas",    type: white, cost: 9.5,  bottle_price: 29, glass_price: 6.0, by_glass: true,  pop: 8}
+  w03: {name: "Godello Valdeorras",      type: white, cost: 8.8,  bottle_price: 27, glass_price: 5.5, by_glass: true,  pop: 5}
+  w04: {name: "Rioja crianza",           type: red,   cost: 7.2,  bottle_price: 23, glass_price: 4.8, by_glass: true,  pop: 12}
+  w05: {name: "Ribera del Duero roble",  type: red,   cost: 8.9,  bottle_price: 27, glass_price: 5.5, by_glass: true,  pop: 9}
+  w06: {name: "Mencia Bierzo",           type: red,   cost: 9.8,  bottle_price: 30, glass_price: 6.0, by_glass: true,  pop: 5}
+  w07: {name: "Garnacha Gredos",         type: red,   cost: 11.5, bottle_price: 34, glass_price: 6.8, by_glass: true,  pop: 4}
+  w08: {name: "Cava brut nature",        type: sparkling, cost: 7.0, bottle_price: 24, glass_price: 5.0, by_glass: true, pop: 8}
+  w09: {name: "Rosado Navarra",          type: rose,  cost: 5.6,  bottle_price: 19, glass_price: 4.2, by_glass: true,  pop: 4}
+  w10: {name: "Jerez fino",              type: sherry, cost: 8.0, bottle_price: 24, glass_price: 4.5, by_glass: true,  pop: 6}
+  w11: {name: "Rioja reserva",           type: red,   cost: 12.5, bottle_price: 36, pop: 4}
+  w12: {name: "Rioja gran reserva",      type: red,   cost: 24.0, bottle_price: 62, pop: 1.2}
+  w13: {name: "Ribera crianza",          type: red,   cost: 14.0, bottle_price: 40, pop: 3}
+  w14: {name: "Priorat",                 type: red,   cost: 19.0, bottle_price: 52, pop: 1.5}
+  w15: {name: "Toro",                    type: red,   cost: 10.5, bottle_price: 31, pop: 2.5}
+  w16: {name: "Ribeiro blanco",          type: white, cost: 9.0,  bottle_price: 28, pop: 2.5}
+  w17: {name: "Rueda superior",          type: white, cost: 11.0, bottle_price: 33, pop: 3}
+  w18: {name: "Chardonnay Somontano",    type: white, cost: 10.2, bottle_price: 31, pop: 2}
+  w19: {name: "Champagne",               type: sparkling, cost: 28.0, bottle_price: 75, pop: 1.2}
+  w20: {name: "Cava reserva",            type: sparkling, cost: 10.0, bottle_price: 31, pop: 3}
+  w21: {name: "Vino natural tinto",      type: red,   cost: 13.0, bottle_price: 38, pop: 2.5}
+  w22: {name: "Vino natural naranja",    type: orange, cost: 14.5, bottle_price: 42, pop: 1.8}
+  w23: {name: "Manzanilla",              type: sherry, cost: 9.0, bottle_price: 27, pop: 2}
+  w24: {name: "Amontillado",             type: sherry, cost: 15.0, bottle_price: 43, pop: 1}
+  w25: {name: "Cabernet Penedes",        type: red,   cost: 9.0,  bottle_price: 28, pop: 1.5}
+  w26: {name: "Tempranillo joven",       type: red,   cost: 5.4,  bottle_price: 18, pop: 3}
+  w27: {name: "Bobal Utiel-Requena",     type: red,   cost: 6.8,  bottle_price: 22, pop: 1.6}
+  w28: {name: "Tinto Mallorca",          type: red,   cost: 17.0, bottle_price: 48, pop: 0.8}
+  w29: {name: "Blanco Gredos",           type: white, cost: 16.0, bottle_price: 46, pop: 1.0}
+  w30: {name: "Gran Reserva 2005",       type: red,   cost: 38.0, bottle_price: 98, pop: 0.5}
