@@ -42,7 +42,7 @@ pnl = read_csv("monthly_pnl.csv", ("month",))
 fig = go.Figure()
 fig.add_bar(x=pnl["month"], y=pnl["revenue"], name="Revenue", marker_color=WINE, opacity=0.75)
 fig.add_scatter(x=pnl["month"], y=pnl["ebitda"], name="EBITDA", mode="lines+markers", line={"color": GOLD, "width": 3}, yaxis="y2")
-fig.update_layout(height=380, yaxis={"title": "Revenue (EUR)"}, yaxis2={"title": "EBITDA (EUR)", "overlaying": "y", "side": "right", "showgrid": False}, legend={"orientation": "h", "y": 1.12})
+fig.update_layout(height=380, yaxis={"title": "Revenue (EUR)"}, yaxis2={"title": "EBITDA (EUR)", "overlaying": "y", "side": "right", "showgrid": False})
 st.plotly_chart(fig, use_container_width=True)
 st.caption("August is the weak month in Madrid: demand falls about a third while rent and a fixed staff template do not.")
 

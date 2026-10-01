@@ -32,7 +32,7 @@ fig = go.Figure()
 fig.add_bar(x=d["hour"], y=d["current"], name="Today's template", marker_color=SLATE)
 fig.add_bar(x=d["hour"], y=d["optimized"], name="Optimized", marker_color=GOLD)
 fig.add_scatter(x=d["hour"], y=d["required"], name="Needed (actual guests)", mode="lines+markers", line={"color": WINE, "width": 3})
-fig.update_layout(barmode="group", height=400, title=f"{role.capitalize()} on {wd}: average people per hour", xaxis_title="Hour of day (24 = after midnight)", yaxis_title="People", legend={"orientation": "h", "y": 1.12})
+fig.update_layout(barmode="group", height=400, title=f"{role.capitalize()} on {wd}: average people per hour", xaxis_title="Hour of day (24 = after midnight)", yaxis_title="People")
 st.plotly_chart(fig, use_container_width=True)
 
 st.subheader("Example week plan")

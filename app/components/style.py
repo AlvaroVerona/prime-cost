@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import re
+
 import plotly.graph_objects as go
 import plotly.io as pio
 import streamlit as st
@@ -17,7 +19,9 @@ def register_template() -> None:
     t.layout.plot_bgcolor = "rgba(0,0,0,0)"
     t.layout.font = {"family": "sans-serif", "color": CREAM, "size": 13}
     t.layout.colorway = [WINE, GOLD, SLATE, SAGE, ROSE, "#8A8078"]
-    t.layout.margin = {"l": 10, "r": 10, "t": 40, "b": 10}
+    t.layout.margin = {"l": 10, "r": 10, "t": 95, "b": 10}
+    t.layout.title = {"y": 0.97, "yanchor": "top", "x": 0.0, "xanchor": "left", "font": {"size": 16}}
+    t.layout.legend = {"orientation": "h", "yanchor": "bottom", "y": 1.0, "xanchor": "left", "x": 0.0, "title": {"text": ""}}
     t.layout.xaxis.gridcolor = "rgba(237,230,221,0.08)"
     t.layout.yaxis.gridcolor = "rgba(237,230,221,0.08)"
     pio.templates["prime_cost"] = t
@@ -55,7 +59,10 @@ def kpis(items: list[tuple[str, str, str | None]]) -> None:
 
 
 def explain(text: str) -> None:
-    st.markdown(f"<div style='opacity:.8;font-size:.95rem;margin:.2rem 0 1rem 0'>{text}</div>", unsafe_allow_html=True)
+    """A short note under a chart. Accepts **bold** and *italic* (converted, because it is rendered as HTML)."""
+    html = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", text)
+    html = re.sub(r"(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)", r"<i>\1</i>", html)
+    st.markdown(f"<div style='opacity:.8;font-size:.95rem;margin:.2rem 0 1rem 0'>{html}</div>", unsafe_allow_html=True)
 
 
 def need_outputs() -> None:

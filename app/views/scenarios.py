@@ -23,7 +23,7 @@ ann = read_csv("scenarios_annual_ebitda.csv")
 fig = go.Figure()
 fig.add_histogram(x=ann["status_quo"], name="Keep running as is", marker_color=SLATE, opacity=0.75, nbinsx=50)
 fig.add_histogram(x=ann["recommendations"], name="With recommendations", marker_color=GOLD, opacity=0.75, nbinsx=50)
-fig.update_layout(barmode="overlay", title="Distribution of next-12-month EBITDA (EUR)", height=380, legend={"orientation": "h", "y": 1.12})
+fig.update_layout(barmode="overlay", title="Distribution of next-12-month EBITDA (EUR)", height=380)
 st.plotly_chart(fig, use_container_width=True)
 explain("Both strategies are simulated on the **same random draws** of demand, ingredient prices and wage increases, so the gap between the two curves is the effect of the actions, not luck. "
         f"Only {pct(0.6, 0)} of the estimated benefit of the recommendations is assumed to materialise.")
@@ -35,7 +35,7 @@ fig.add_scatter(x=mo["month"], y=mo["status_quo_p5"], mode="lines", line={"width
 fig.add_scatter(x=mo["month"], y=mo["status_quo_p50"], mode="lines+markers", line={"color": SLATE}, name="Status quo, median")
 fig.add_scatter(x=mo["month"], y=mo["recommendations_p50"], mode="lines+markers", line={"color": GOLD}, name="With recommendations, median")
 fig.add_hline(y=0, line_color=WINE)
-fig.update_layout(title="Monthly EBITDA, next 12 months (EUR)", height=380, legend={"orientation": "h", "y": 1.15})
+fig.update_layout(title="Monthly EBITDA, next 12 months (EUR)", height=380)
 st.plotly_chart(fig, use_container_width=True)
 
 st.subheader("What matters most? A 10% move in each driver")
@@ -43,7 +43,7 @@ se = read_csv("sensitivity.csv").sort_values("ebitda_change_up")
 fig = go.Figure()
 fig.add_bar(y=se["driver"], x=se["ebitda_change_up"], name="+10%", orientation="h", marker_color=GOLD)
 fig.add_bar(y=se["driver"], x=se["ebitda_change_down"], name="-10%", orientation="h", marker_color=SLATE)
-fig.update_layout(barmode="relative", height=340, xaxis_title="Change in annual EBITDA (EUR)", legend={"orientation": "h", "y": 1.15})
+fig.update_layout(barmode="relative", height=340, xaxis_title="Change in annual EBITDA (EUR)")
 st.plotly_chart(fig, use_container_width=True)
 dr = sc["drivers"]
 st.caption(f"Estimated from history: yearly demand growth {pct(dr['growth_yoy'])} (half of it is extrapolated), monthly demand noise {pct(dr['demand_noise_monthly'])}, "

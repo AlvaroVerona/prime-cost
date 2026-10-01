@@ -26,7 +26,7 @@ for pol, color, label in [("baseline", SLATE, "Today's rule"), ("forecast", GOLD
     d = runs[runs["policy"] == pol]
     fig.add_bar(x=["Waste (thrown away)", "Lost sales margin"], y=[d["waste_cost"].mean(), d["lost_margin"].mean()], name=label, marker_color=color,
                 error_y={"type": "data", "array": [d["waste_cost"].std(), d["lost_margin"].std()]})
-fig.update_layout(barmode="group", title="Cost of getting the order wrong, 12 weeks (EUR)", height=380, legend={"orientation": "h", "y": 1.12})
+fig.update_layout(barmode="group", title="Cost of getting the order wrong, 12 weeks (EUR)", height=380)
 c1.plotly_chart(fig, use_container_width=True)
 ex = read_csv("purchasing_expiry_by_ingredient.csv")
 ex["gain"] = ex["baseline"] - ex["forecast"]
@@ -34,7 +34,7 @@ top = ex.sort_values("baseline", ascending=False).head(8)
 fig = go.Figure()
 fig.add_bar(y=top["ingredient_id"], x=top["baseline"], name="Today's rule", orientation="h", marker_color=SLATE)
 fig.add_bar(y=top["ingredient_id"], x=top["forecast"], name="Forecast-based", orientation="h", marker_color=GOLD)
-fig.update_layout(barmode="group", title="Expired stock by ingredient, 12 weeks (EUR)", height=380, yaxis={"autorange": "reversed"}, legend={"orientation": "h", "y": 1.12})
+fig.update_layout(barmode="group", title="Expired stock by ingredient, 12 weeks (EUR)", height=380, yaxis={"autorange": "reversed"})
 c2.plotly_chart(fig, use_container_width=True)
 
 st.subheader("How the forecast policy decides how much to order")

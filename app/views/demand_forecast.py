@@ -29,7 +29,7 @@ fig.add_scatter(x=d["date"], y=d["upper"], mode="lines", line={"width": 0}, show
 fig.add_scatter(x=d["date"], y=d["lower"], mode="lines", line={"width": 0}, fill="tonexty", fillcolor="rgba(201,162,39,0.18)", name="80% interval")
 fig.add_scatter(x=d["date"], y=d["forecast"], mode="lines", name="Forecast", line={"color": GOLD, "width": 2})
 fig.add_scatter(x=d["date"], y=d["covers"], mode="markers", name="Actual guests", marker={"color": WINE, "size": 7})
-fig.update_layout(title=f"Guests per day, forecast {h} day(s) ahead", height=420, legend={"orientation": "h", "y": 1.12})
+fig.update_layout(title=f"Guests per day, forecast {h} day(s) ahead", height=420)
 st.plotly_chart(fig, use_container_width=True)
 
 c1, c2 = st.columns(2)
