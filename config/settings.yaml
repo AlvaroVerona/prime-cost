@@ -128,3 +128,13 @@ quality:                      # injected data problems (the validation engine ha
   negative_qty_rate: 0.0008
   price_mismatch_rate: 0.002
   bad_timestamp_rate: 0.0005
+
+analysis:                      # parameters of the analytics (not of the data generation)
+  menu:
+    months: 12                 # window for the menu engineering matrix
+    price_change_tested: 0.05
+    elasticity_prior_mean: -0.8   # conservative prior used to shrink noisy estimates
+    elasticity_prior_sd: 0.5
+    elasticity_range: [-1.2, -0.4]  # pessimistic / optimistic elasticities every recommendation is tested against
+    window_weeks: 12
+    n_boot: 400

@@ -1,0 +1,42 @@
+{
+  "classes": {
+    "Bebidas": {
+      "Dog": 1,
+      "Plowhorse": 2,
+      "Puzzle": 2,
+      "Star": 1
+    },
+    "Postres y cafe": {
+      "Dog": 0,
+      "Plowhorse": 2,
+      "Puzzle": 1,
+      "Star": 2
+    },
+    "Tapas": {
+      "Dog": 3,
+      "Plowhorse": 9,
+      "Puzzle": 6,
+      "Star": 6
+    },
+    "Vino botella": {
+      "Dog": 4,
+      "Plowhorse": 9,
+      "Puzzle": 11,
+      "Star": 6
+    },
+    "Vino por copa": {
+      "Dog": 1,
+      "Plowhorse": 4,
+      "Puzzle": 2,
+      "Star": 3
+    }
+  },
+  "margin_share_by_class": {
+    "Dog": 0.048,
+    "Plowhorse": 0.4296,
+    "Puzzle": 0.215,
+    "Star": 0.3074
+  },
+  "robust_price_gain_total": 14167.97,
+  "price_rise_tested": 0.05
+}

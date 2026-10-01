@@ -1,0 +1,83 @@
+{
+  "score": {
+    "by_dataset": {
+      "tickets": 99.61,
+      "ticket_lines": 99.78,
+      "purchases": 98.17,
+      "inventory_counts": 100.0,
+      "shifts": 100.0,
+      "waste_log": 100.0
+    },
+    "overall": 99.59
+  },
+  "rows": {
+    "tickets": 30138,
+    "ticket_lines": 213861,
+    "purchases": 11389,
+    "inventory_counts": 8008,
+    "shifts": 6120,
+    "waste_log": 3782
+  },
+  "quarantined": {
+    "tickets": 130,
+    "ticket_lines": 598,
+    "purchases": 0,
+    "inventory_counts": 0,
+    "shifts": 0,
+    "waste_log": 0
+  },
+  "validated": {
+    "tickets": 30008,
+    "ticket_lines": 213264,
+    "purchases": 11389
+  },
+  "issues_by_rule": [
+    {
+      "dataset": "purchases",
+      "rule": "invoice_above_agreed_price",
+      "severity": "MEDIUM",
+      "records": 468
+    },
+    {
+      "dataset": "purchases",
+      "rule": "short_delivery",
+      "severity": "MEDIUM",
+      "records": 236
+    },
+    {
+      "dataset": "ticket_lines",
+      "rule": "non_positive_qty",
+      "severity": "CRITICAL",
+      "records": 171
+    },
+    {
+      "dataset": "ticket_lines",
+      "rule": "price_mismatch",
+      "severity": "HIGH",
+      "records": 427
+    },
+    {
+      "dataset": "tickets",
+      "rule": "duplicate_ticket",
+      "severity": "HIGH",
+      "records": 120
+    },
+    {
+      "dataset": "tickets",
+      "rule": "missing_channel",
+      "severity": "MEDIUM",
+      "records": 90
+    },
+    {
+      "dataset": "tickets",
+      "rule": "timestamp_outside_opening_hours",
+      "severity": "HIGH",
+      "records": 10
+    }
+  ],
+  "issues_by_severity": {
+    "CRITICAL": 171,
+    "HIGH": 557,
+    "MEDIUM": 794
+  }
+}

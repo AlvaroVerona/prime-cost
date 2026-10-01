@@ -1,0 +1,47 @@
+{
+  "revenue": 2025641.29,
+  "contribution": 1384160.43,
+  "theoretical_food_cost_pct": 0.2825,
+  "break_even": {
+    "months": 12,
+    "monthly_fixed_costs": 40819.33,
+    "contribution_margin_pct": 0.6836,
+    "break_even_monthly_revenue": 59709.23,
+    "avg_monthly_revenue": 88822.67,
+    "margin_of_safety_pct": 0.3278
+  },
+  "unit_economics": {
+    "barra": {
+      "tickets": 3983,
+      "avg_ticket": 57.74,
+      "avg_product_cost": 16.29,
+      "avg_contribution": 40.99,
+      "contribution_pct": 0.7098,
+      "revenue_per_cover": 28.02
+    },
+    "delivery": {
+      "tickets": 5103,
+      "avg_ticket": 33.51,
+      "avg_product_cost": 9.52,
+      "avg_contribution": 13.32,
+      "contribution_pct": 0.3974,
+      "revenue_per_cover": 33.51
+    },
+    "sala": {
+      "tickets": 18355,
+      "avg_ticket": 78.35,
+      "avg_product_cost": 22.11,
+      "avg_contribution": 55.61,
+      "contribution_pct": 0.7098,
+      "revenue_per_cover": 26.82
+    },
+    "terraza": {
+      "tickets": 2480,
+      "avg_ticket": 72.75,
+      "avg_product_cost": 20.58,
+      "avg_contribution": 51.59,
+      "contribution_pct": 0.7091,
+      "revenue_per_cover": 26.65
+    }
+  }
+}

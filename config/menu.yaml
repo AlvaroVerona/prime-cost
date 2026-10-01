@@ -76,7 +76,7 @@ ingredients:
 # (lunch, afternoon, evening, late); elasticity = own-price elasticity used when prices change.
 items:
   jamon_racion:   {name: "Jamon iberico (racion)",  cat: Tapas, price: 22.0, pop: 7,  e: -0.5, recipe: {jamon: 0.08, pan: 0.2}}
-  croquetas:      {name: "Croquetas de jamon",       cat: Tapas, price: 9.0,  pop: 12, e: -0.6, recipe: {jamon: 0.04, harina: 0.04, leche: 0.25, mantequilla: 0.04, huevos: 0.5, aceite: 0.08}}
+  croquetas:      {name: "Croquetas de jamon",       cat: Tapas, price: 9.0,  pop: 12, e: -0.6, recipe: {jamon: 0.02, harina: 0.04, leche: 0.25, mantequilla: 0.04, huevos: 0.5, aceite: 0.08}}
   tortilla:       {name: "Tortilla de patatas",      cat: Tapas, price: 8.5,  pop: 11, e: -0.6, recipe: {huevos: 3, patata: 0.25, cebolla: 0.06, aceite: 0.06}}
   bravas:         {name: "Patatas bravas",           cat: Tapas, price: 6.5,  pop: 12, e: -0.8, recipe: {patata: 0.3, aceite: 0.08, tomate: 0.1, pimenton: 0.005}}
   ensaladilla:    {name: "Ensaladilla rusa",         cat: Tapas, price: 7.5,  pop: 8,  e: -0.7, recipe: {patata: 0.15, huevos: 1, atun: 0.04, aceite: 0.03}}

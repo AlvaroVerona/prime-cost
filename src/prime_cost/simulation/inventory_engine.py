@@ -230,7 +230,7 @@ class InventoryEngine:
                     continue
                 cost = qty * self._cost(ing, date)
                 self.physical_loss.append({"date": date, "ingredient_id": ing, "qty": qty, "cost": cost, "cause": "expiry"})
-                if record and self.rng.random() < wl:
+                if record and round(qty, 3) > 0 and self.rng.random() < wl:
                     self.waste.append({"date": date, "ingredient_id": ing, "qty": round(qty, 3), "reason": "expired", "cost": round(cost, 2)})
 
     def _glass(self, ing: str, date: pd.Timestamp) -> bool:
@@ -315,7 +315,7 @@ class InventoryEngine:
                 continue
             cost = taken * self._cost(ing, date)
             self.physical_loss.append({"date": date, "ingredient_id": ing, "qty": taken, "cost": cost, "cause": "operational"})
-            if record and self.rng.random() < w["log_prob_operational"]:
+            if record and round(taken, 3) > 0 and self.rng.random() < w["log_prob_operational"]:
                 reason = reasons[int(self.rng.choice(len(reasons), p=rp / rp.sum()))]
                 self.waste.append({"date": date, "ingredient_id": ing, "qty": round(taken, 3), "reason": reason, "cost": round(cost, 2)})
 
@@ -334,7 +334,7 @@ class InventoryEngine:
                     if discarded:
                         cost = self._cost(ing, date) * left / cap
                         self.physical_loss.append({"date": date, "ingredient_id": ing, "qty": left / cap, "cost": cost, "cause": "open_bottle"})
-                        if record and self.rng.random() < 0.5:
+                        if record and round(left / cap, 3) > 0 and self.rng.random() < 0.5:
                             self.waste.append({"date": date, "ingredient_id": ing, "qty": round(left / cap, 3), "reason": "open_bottle_expired", "cost": round(cost, 2)})
                 else:
                     keep.append(b)
