@@ -1,0 +1,7 @@
+reason,events,cost
+expired,2505,40987.6
+overproduction,411,894.54
+preparation_error,336,633.6
+spoiled_storage,229,485.51
+returned_dish,218,466.48
+open_bottle_expired,79,205.1

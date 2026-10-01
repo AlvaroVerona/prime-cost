@@ -1,0 +1,55 @@
+ingredient_id,name,kind,cost
+gambas,Gambas,fresh,7445.55
+tartar,Ternera para tartar,fresh,6608.7
+calamar,Calamar,fresh,5044.12
+pan,Pan (barra),fresh,3517.51
+boquerones,Boquerones,fresh,3476.11
+mejillones,Mejillones,fresh,3206.54
+padron,Pimiento de padron,fresh,3038.91
+pulpo,Pulpo,fresh,2402.17
+carrillera,Carrillera de ternera,fresh,1738.22
+jamon,Jamon iberico,fresh,1628.37
+lechuga,Lechuga y mezclum,fresh,1379.68
+bacalao,Bacalao,fresh,1226.25
+aguacate,Aguacate,fresh,993.67
+lomo,Lomo adobado,fresh,540.67
+tomate,Tomate,fresh,380.29
+aceite,Aceite de oliva,dry,275.72
+perejil,Perejil,fresh,259.52
+cerveza,Cerveza de barril,drink,98.99
+berenjena,Berenjena,fresh,54.730000000000004
+huevos,Huevos,fresh,46.58
+bottle_w09,Rosado Navarra (botella),wine,40.35
+bottle_w08,Cava brut nature (botella),wine,35.5
+bottle_w03,Godello Valdeorras (botella),wine,30.73
+bottle_w07,Garnacha Gredos (botella),wine,27.38
+bottle_w10,Jerez fino (botella),wine,21.37
+bottle_w06,Mencia Bierzo (botella),wine,21.119999999999997
+manchego,Queso manchego curado,fresh,19.49
+anchoas,Anchoas del Cantabrico,dry,18.29
+bottle_w01,Verdejo Rueda (botella),wine,15.3
+bottle_w02,Albarino Rias Baixas (botella),wine,13.35
+patata,Patata,fresh,12.76
+vermut,Vermut,drink,10.38
+chorizo,Chorizo,fresh,9.43
+refresco,Refresco,drink,6.25
+aceitunas,Aceitunas,dry,4.6899999999999995
+leche,Leche,fresh,4.4399999999999995
+mantequilla,Mantequilla,dry,4.42
+atun,Atun en lata,dry,3.81
+ginebra,Ginebra,drink,3.41
+tonica,Tonica,drink,2.27
+agua,Agua,drink,2.12
+cabrales,Queso cabrales,fresh,1.51
+brie,Queso brie,fresh,0.52
+limon,Limon,fresh,0.37
+cafe,Cafe en grano,dry,0.28
+harina,Harina,dry,0.25
+miel,Miel,dry,0.16
+cebolla,Cebolla,fresh,0.15
+pimenton,Pimenton,dry,0.14
+nata,Nata,fresh,0.13
+chocolate,Chocolate,dry,0.07
+azucar,Azucar,dry,0.060000000000000005
+ajo,Ajo,fresh,0.02
+vinagre,Vinagre,dry,0.01

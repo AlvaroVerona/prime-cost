@@ -92,6 +92,9 @@ def run(tables=None, output_dir=OUTPUT_DIR) -> dict:
     weekly = r.groupby("period_end", as_index=False)[["theoretical_cost", "actual_cost", "logged_waste_cost", "unexplained_cost"]].sum()
     weekly["variance_pct"] = (weekly["actual_cost"] - weekly["theoretical_cost"]) / weekly["theoretical_cost"]
     weekly.to_csv(output_dir / "food_cost_weekly.csv", index=False)
+    waste = t["waste_log"].merge(t["ingredients"][["ingredient_id", "name", "kind"]], on="ingredient_id")
+    waste.groupby("reason", as_index=False).agg(events=("cost", "size"), cost=("cost", "sum")).sort_values("cost", ascending=False).to_csv(output_dir / "waste_by_reason.csv", index=False)
+    waste.groupby(["ingredient_id", "name", "kind"], as_index=False).agg(cost=("cost", "sum")).sort_values("cost", ascending=False).to_csv(output_dir / "waste_by_ingredient.csv", index=False)
     (output_dir / "food_cost_summary.json").write_text(json.dumps(res["summary"], indent=2))
     s = res["summary"]
     print(f"theoretical {s['theoretical_cost']:,.0f}  actual {s['actual_cost']:,.0f}  gap {s['variance_pct_of_theoretical']:.1%}  "
